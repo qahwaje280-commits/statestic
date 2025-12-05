@@ -3,23 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تحليل الاختبارات - جدول المواصفات</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>بنك أسئلة تاريخ الأردن - الفصل الأول</title>
     <style>
-        :root {
-            --primary-color: #2c5aa0;
-            --secondary-color: #f1f8ff;
-            --accent-color: #ffcc00;
-            --text-color: #333;
-            --light-gray: #f5f5f5;
-            --border-color: #ddd;
-            --success-color: #4caf50;
-            --warning-color: #ff9800;
-            --info-color: #2196f3;
-            --stat-color: #9c27b0;
-        }
-        
         * {
             box-sizing: border-box;
             margin: 0;
@@ -28,1635 +13,546 @@
         }
         
         body {
-            background-color: #f9f9f9;
-            color: var(--text-color);
+            background-color: #fffde7; /* خلفية صفراء فاتحة */
+            color: #333;
             line-height: 1.6;
             padding: 20px;
-            direction: rtl;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 20px;
         }
         
         header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
             text-align: center;
-            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #c62828;
         }
         
-        .credits {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #e0e0e0;
+        h1 {
+            color: #c62828; /* أحمر للعناوين الرئيسية */
+            font-size: 2.2rem;
+            margin-bottom: 10px;
         }
         
-        .credits span {
-            display: inline-block;
-            margin: 0 10px;
+        h2 {
+            color: #c62828; /* أحفر للعناوين الفرعية */
+            font-size: 1.8rem;
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ffd54f;
         }
         
-        .tabs {
+        h3 {
+            color: #c62828; /* أحمر لعناوين الدروس */
+            font-size: 1.5rem;
+            margin: 20px 0 10px;
+            padding: 10px;
+            background-color: #fff9c4;
+            border-right: 5px solid #ff9800;
+            border-radius: 5px;
+        }
+        
+        .subtitle {
+            color: #5d4037;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .unit-info {
+            background-color: #fff9c4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border-right: 5px solid #ffb300;
+        }
+        
+        .lesson-nav {
             display: flex;
-            background-color: #1e3f72;
             flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff9c4;
+            border-radius: 8px;
         }
         
-        .tab {
-            padding: 12px 20px;
-            background-color: #1e3f72;
+        .lesson-nav a {
+            background-color: #ff9800;
             color: white;
-            cursor: pointer;
-            border: none;
-            flex: 1;
-            min-width: 180px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        .tab:hover {
-            background-color: #2a5298;
-        }
-        
-        .tab.active {
-            background-color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
             font-weight: bold;
+            transition: all 0.3s;
         }
         
-        .tab-content {
-            display: none;
+        .lesson-nav a:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+        }
+        
+        .question-container {
+            margin-bottom: 25px;
             padding: 20px;
-            animation: fadeIn 0.5s;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ffe082;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
         }
         
-        .tab-content.active {
+        .question {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .options {
+            margin-right: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+            padding: 5px 0;
+        }
+        
+        .answer-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .show-answer {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+        
+        .show-answer:hover {
+            background-color: #388e3c;
+        }
+        
+        .external-link {
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .external-link:hover {
+            background-color: #1976d2;
+        }
+        
+        .answer {
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            border-right: 4px solid #4caf50;
+            display: none;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        .answer.show {
             display: block;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .school-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            padding: 15px 20px;
-            background-color: var(--secondary-color);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .info-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .info-item label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-        }
-        
-        .info-item input, .info-item select {
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-        }
-        
-        .specification-summary {
-            padding: 20px;
-            background-color: var(--light-gray);
-            margin: 20px;
-            border-radius: 6px;
-            border-right: 4px solid var(--primary-color);
-        }
-        
-        .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 14px;
-        }
-        
-        .spec-table th, .spec-table td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            text-align: center;
-        }
-        
-        .spec-table th {
-            background-color: var(--primary-color);
+        .question-number {
+            display: inline-block;
+            background-color: #ff9800;
             color: white;
-        }
-        
-        .spec-table tr:nth-child(even) {
-            background-color: var(--secondary-color);
-        }
-        
-        .spec-table input {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
+            width: 30px;
+            height: 30px;
             text-align: center;
-        }
-        
-        .analysis-table-container {
-            overflow-x: auto;
-            margin: 20px;
-        }
-        
-        .analysis-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 1000px;
-        }
-        
-        .analysis-table th, .analysis-table td {
-            border: 1px solid var(--border-color);
-            padding: 8px;
-            text-align: center;
-        }
-        
-        .analysis-table th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: normal;
-        }
-        
-        .unit-header {
-            background-color: #1e3f72 !important;
-        }
-        
-        .level-header {
-            background-color: #3a6bc0 !important;
-        }
-        
-        .analysis-table input {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            text-align: center;
-        }
-        
-        .totals-row {
-            background-color: var(--light-gray);
+            line-height: 30px;
+            border-radius: 50%;
+            margin-left: 10px;
             font-weight: bold;
         }
         
-        .conclusion {
-            padding: 20px;
-            background-color: #e8f4ff;
-            margin: 20px;
-            border-radius: 6px;
-            border: 1px solid #b8d4f0;
+        .lesson {
+            display: none;
         }
         
-        .signatures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            padding: 0 20px 20px;
-        }
-        
-        .signature-box {
-            text-align: center;
-            width: 30%;
-        }
-        
-        .signature-line {
-            border-bottom: 1px solid var(--border-color);
-            padding: 5px;
-            margin-top: 40px;
+        .lesson.active {
+            display: block;
         }
         
         .controls {
             display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
         }
         
         .btn {
-            padding: 10px 20px;
+            background-color: #c62828;
+            color: white;
             border: none;
-            border-radius: 4px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-        
-        .btn-warning {
-            background-color: var(--warning-color);
-            color: white;
-        }
-        
-        .btn-info {
-            background-color: var(--info-color);
-            color: white;
-        }
-        
-        .btn-stat {
-            background-color: var(--stat-color);
-            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
         
         .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
+            background-color: #b71c1c;
         }
         
-        .note {
-            background-color: #fff9e6;
-            padding: 10px 15px;
-            border-right: 4px solid var(--accent-color);
-            margin: 10px 20px;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        
-        .status-compatible {
-            background-color: #e8f5e9;
-            color: var(--success-color);
-        }
-        
-        .status-incompatible {
-            background-color: #ffebee;
-            color: #f44336;
-        }
-        
-        .export-options {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .export-btn {
-            padding: 8px 15px;
-            background-color: #607d8b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        /* التحليل الإحصائي */
-        .statistical-section {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .statistical-section h3 {
-            color: var(--stat-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--stat-color);
-        }
-        
-        .results-table-container {
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-        
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 800px;
-        }
-        
-        .results-table th, .results-table td {
-            border: 1px solid var(--border-color);
-            padding: 8px;
+        .footer {
             text-align: center;
-        }
-        
-        .results-table th {
-            background-color: var(--stat-color);
-            color: white;
-        }
-        
-        .results-table input {
-            width: 40px;
-            padding: 3px;
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            text-align: center;
-        }
-        
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .chart-box {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        .chart-title {
-            text-align: center;
-            margin-bottom: 10px;
-            color: var(--stat-color);
-            font-weight: bold;
-        }
-        
-        .stat-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--stat-color);
-            margin: 10px 0;
-        }
-        
-        .stat-label {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
             color: #666;
-            font-size: 14px;
+            font-size: 0.9rem;
         }
         
         @media (max-width: 768px) {
-            .school-info {
-                grid-template-columns: 1fr;
+            body {
+                padding: 10px;
             }
             
-            .signatures {
-                flex-direction: column;
+            .container {
+                padding: 15px;
             }
             
-            .signature-box {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .lesson-nav {
+                justify-content: center;
+            }
+            
+            .show-answer, .external-link {
+                display: block;
                 width: 100%;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
+                margin-left: 0;
             }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .controls {
-                flex-direction: column;
-            }
-            
-            .spec-table {
-                font-size: 12px;
-            }
-            
-            .spec-table th, .spec-table td {
-                padding: 6px;
-            }
-            
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .calculation-details {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .calculation-details h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .percentage-input {
-            width: 70px;
-            text-align: center;
-        }
-        
-        .cognitive-levels {
-            display: flex;
-            justify-content: space-around;
-            margin: 15px 0;
-            padding: 10px;
-            background-color: #e3f2fd;
-            border-radius: 6px;
-        }
-        
-        .cognitive-level {
-            text-align: center;
-        }
-        
-        .cognitive-level input {
-            width: 60px;
-            text-align: center;
-        }
-        
-        .empty-field {
-            background-color: #fff9e6;
-            border: 1px dashed #ffcc00;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>بنك أسئلة تاريخ الأردن - الفصل الأول</h1>
+        <div class="subtitle">الوحدة الأولى: الأردن في العصور القديمة</div>
+    </header>
+    
     <div class="container">
-        <header>
-            <h1><i class="fas fa-chart-bar"></i> نظام تحليل الاختبارات - جدول المواصفات</h1>
-            <p>إصدار 1.2 - مع تفريغ البيانات وإضافة النسبة للعلامة</p>
-            <div class="credits">
-                <span>تصميم: د. أيمن قهوجي</span>
-                <span>إشراف: د. ثائر النجار</span>
-            </div>
-        </header>
-        
-        <div class="tabs">
-            <button class="tab active" onclick="openTab('specifications')">جدول المواصفات</button>
-            <button class="tab" onclick="openTab('analysis')">تحليل الاختبار</button>
-            <button class="tab" onclick="openTab('statistical')">التحليل الإحصائي</button>
-            <button class="tab" onclick="openTab('results')">النتائج والتقارير</button>
+        <div class="unit-info">
+            <h2>الوحدة الأولى: الأردن في العصور القديمة</h2>
+            <p>تحتوي هذه الوحدة على دروس تغطي الفترات التاريخية المختلفة للأردن في العصور القديمة، من العصور الحجرية حتى العصر الحديدي ومملكة الأنباط والفترات اليونانية والرومانية البيزنطية.</p>
+            <p style="margin-top: 10px; color: #c62828; font-weight: bold;">🔗 تحتوي كل مجموعة أسئلة على روابط لمواقع إضافية تحتوي على مزيد من المعلومات حول الموضوع.</p>
         </div>
         
-        <div class="school-info">
-            <div class="info-item">
-                <label for="school-year">العام الدراسي:</label>
-                <input type="text" id="school-year" value="2026/2025">
-            </div>
-            <div class="info-item">
-                <label for="school-name">المدرسة:</label>
-                <input type="text" id="school-name" class="empty-field" placeholder="أدخل اسم المدرسة">
-            </div>
-            <div class="info-item">
-                <label for="grade">الصف:</label>
-                <select id="grade">
-                    <option value="الأول">الصف الأول</option>
-                    <option value="الثاني">الصف الثاني</option>
-                    <option value="الثالث">الصف الثالث</option>
-                    <option value="الرابع">الصف الرابع</option>
-                    <option value="الخامس">الصف الخامس</option>
-                    <option value="السادس">الصف السادس</option>
-                    <option value="السابع">الصف السابع</option>
-                    <option value="الثامن">الصف الثامن</option>
-                    <option value="التاسع" selected>الصف التاسع</option>
-                    <option value="العاشر">الصف العاشر</option>
-                    <option value="الحادي عشر">الصف الحادي عشر</option>
-                    <option value="الثاني عشر">الصف الثاني عشر</option>
-                    <option value="الأول الثانوي">الصف الأول الثانوي</option>
-                    <option value="الثاني الثانوي">الصف الثاني الثانوي</option>
-                </select>
-            </div>
-            <div class="info-item">
-                <label for="subject">المبحث:</label>
-                <input type="text" id="subject" value="الرياضيات">
-            </div>
-            <div class="info-item">
-                <label for="teacher">المعلم/المعلمة:</label>
-                <input type="text" id="teacher" class="empty-field" placeholder="أدخل اسم المعلم/المعلمة">
-            </div>
-            <div class="info-item">
-                <label for="total-marks">العلامة الكلية:</label>
-                <input type="number" id="total-marks" value="80" min="0" onchange="calculateSpecifications()">
-            </div>
+        <div class="lesson-nav" id="lessonNav">
+            <!-- سيتم ملؤها بواسطة JavaScript -->
         </div>
         
-        <!-- جدول المواصفات -->
-        <div id="specifications" class="tab-content active">
-            <div class="specification-summary">
-                <h2><i class="fas fa-table"></i> جدول المواصفات</h2>
-                <p>قم بإدخال بيانات الوحدات الدراسية وأوزانها</p>
-                
-                <div class="cognitive-levels">
-                    <div class="cognitive-level">
-                        <label for="knowledge-percent">المعرفة والفهم:</label>
-                        <input type="number" id="knowledge-percent" class="percentage-input" value="40" min="0" max="100" onchange="updateCognitiveLevels()"> %
-                    </div>
-                    <div class="cognitive-level">
-                        <label for="application-percent">التوظيف والتطبيق:</label>
-                        <input type="number" id="application-percent" class="percentage-input" value="30" min="0" max="100" onchange="updateCognitiveLevels()"> %
-                    </div>
-                    <div class="cognitive-level">
-                        <label for="skills-percent">المهارات العليا:</label>
-                        <input type="number" id="skills-percent" class="percentage-input" value="30" min="0" max="100" onchange="updateCognitiveLevels()"> %
-                    </div>
-                    <div class="cognitive-level">
-                        <label>المجموع:</label>
-                        <span id="cognitive-total">100%</span>
-                    </div>
+        <!-- الدرس الأول: الأردن في العصور الحجرية -->
+        <div class="lesson active" id="lesson1">
+            <h3><span class="question-number">1</span> الدرس الأول: الأردن في العصور الحجرية</h3>
+            
+            <!-- رابط خارجي للدرس الأول -->
+            <div style="text-align: center; margin: 15px 0;">
+                <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                    عرض المزيد عن: الأردن في العصور الحجرية
+                </a>
+            </div>
+            
+            <!-- السؤال 1 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">1</span> 
+                    الأردن متحف مفتوح، يزخر بتراثه الحضاري منذ العصور:
                 </div>
-                
-                <table class="spec-table">
-                    <thead>
-                        <tr>
-                            <th>رقم الوحدة</th>
-                            <th>اسم الوحدة</th>
-                            <th>عدد الصفحات</th>
-                            <th>وزن الوحدة (%)</th>
-                            <th>علامة الوحدة</th>
-                            <th>النسبة للعلامة (%)</th>
-                            <th>المعرفة والفهم</th>
-                            <th>التوظيف والتطبيق</th>
-                            <th>المهارات العليا</th>
-                        </tr>
-                    </thead>
-                    <tbody id="spec-table-body">
-                        <!-- سيتم ملؤها بواسطة JavaScript -->
-                    </tbody>
-                    <tfoot>
-                        <tr class="totals-row">
-                            <td colspan="3">المجموع</td>
-                            <td id="total-weight">100%</td>
-                            <td id="total-unit-marks">80</td>
-                            <td id="total-percentage">100%</td>
-                            <td id="total-knowledge">32</td>
-                            <td id="total-application">24</td>
-                            <td id="total-skills">24</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                
-                <div class="controls">
-                    <button class="btn btn-primary" onclick="addUnit()"><i class="fas fa-plus"></i> إضافة وحدة</button>
-                    <button class="btn btn-success" onclick="calculateSpecifications()"><i class="fas fa-calculator"></i> حساب المواصفات</button>
-                    <button class="btn btn-warning" onclick="saveData()"><i class="fas fa-save"></i> حفظ البيانات</button>
-                    <button class="btn btn-primary" onclick="clearData()"><i class="fas fa-broom"></i> تفريغ البيانات</button>
+                <div class="options">
+                    <div class="option">أ) الإسلامية</div>
+                    <div class="option">ب) الحجرية</div>
+                    <div class="option">ج) الثلاثي</div>
+                    <div class="option">د) البرونزية</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer1">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                        المزيد عن العصور الحجرية
+                    </a>
+                    <div class="answer" id="answer1">ب) الحجرية</div>
                 </div>
             </div>
-        </div>
-        
-        <!-- تحليل الاختبار -->
-        <div id="analysis" class="tab-content">
-            <div class="specification-summary">
-                <h2><i class="fas fa-chart-pie"></i> تحليل محتوى الاختبار</h2>
-                <p>قم بتوزيع علامات الأسئلة حسب الوحدات والمستويات المعرفية</p>
-                
-                <div class="note">
-                    <strong>ملاحظة:</strong> يقوم المعلم بتفريغ علامات الأسئلة في مكانها مراعياً الوحدة الدراسية والمستوى المعرفي
+            
+            <!-- السؤال 2 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">2</span> 
+                    الاسم الإغريقي للأردن هو:
                 </div>
-                
-                <div class="controls">
-                    <button class="btn btn-primary" onclick="autoFillAnalysis()"><i class="fas fa-magic"></i> تعبئة تلقائية من المواصفات</button>
-                    <button class="btn btn-primary" onclick="addQuestion()"><i class="fas fa-plus"></i> إضافة سؤال</button>
-                    <button class="btn btn-success" onclick="calculateAnalysis()"><i class="fas fa-calculator"></i> حساب التحليل</button>
+                <div class="options">
+                    <div class="option">أ) النشامى</div>
+                    <div class="option">ب) يوردانيم</div>
+                    <div class="option">ج) أرض الرافدين</div>
+                    <div class="option">د) الانحدار شديد والمنعر النهر</div>
                 </div>
-                
-                <div class="analysis-table-container">
-                    <table class="analysis-table" id="analysis-table">
-                        <thead>
-                            <tr>
-                                <th rowspan="3">السؤال</th>
-                                <!-- سيتم إنشاء رؤوس الوحدات ديناميكياً -->
-                            </tr>
-                            <!-- سيتم إنشاء رؤوس الوحدات الفرعية ديناميكياً -->
-                        </thead>
-                        <tbody id="analysis-table-body">
-                            <!-- سيتم ملؤها بواسطة JavaScript -->
-                        </tbody>
-                        <tfoot>
-                            <tr class="totals-row" id="analysis-totals">
-                                <!-- سيتم ملؤها بواسطة JavaScript -->
-                            </tr>
-                            <tr class="totals-row" id="analysis-percentages">
-                                <!-- سيتم ملؤها بواسطة JavaScript -->
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-warning" onclick="checkCompatibility()"><i class="fas fa-check-circle"></i> التحقق من المطابقة</button>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer2">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                        المزيد عن العصور الحجرية
+                    </a>
+                    <div class="answer" id="answer2">ب) يوردانيم</div>
                 </div>
             </div>
-        </div>
-        
-        <!-- التحليل الإحصائي -->
-        <div id="statistical" class="tab-content">
-            <div class="specification-summary">
-                <h2><i class="fas fa-chart-line"></i> التحليل الإحصائي للاختبار</h2>
-                <p>تحليل نتائج الطلاب والفقرات الاختبارية</p>
-                
-                <div class="statistical-section">
-                    <h3><i class="fas fa-table"></i> نتائج الاختبار</h3>
-                    <p>أدخل درجات الطلاب في الفقرات الاختبارية (من 1 إلى 20: أسئلة موضوعية، من 21 إلى 30: أسئلة مقالية)</p>
-                    
-                    <div class="controls">
-                        <button class="btn btn-primary" onclick="addStudent()"><i class="fas fa-user-plus"></i> إضافة طالب</button>
-                        <button class="btn btn-success" onclick="calculateStatistics()"><i class="fas fa-calculator"></i> حساب الإحصائيات</button>
-                        <button class="btn btn-info" onclick="generateRandomData()"><i class="fas fa-random"></i> بيانات عشوائية</button>
-                    </div>
-                    
-                    <div class="results-table-container">
-                        <table class="results-table" id="results-table">
-                            <thead>
-                                <tr>
-                                    <th rowspan="2">رقم الطالب</th>
-                                    <th colspan="20">الأسئلة الموضوعية (1-20)</th>
-                                    <th colspan="10">الأسئلة المقالية (21-30)</th>
-                                    <th rowspan="2">المجموع</th>
-                                    <th rowspan="2">النسبة المئوية</th>
-                                </tr>
-                                <tr id="questions-header">
-                                    <!-- سيتم ملؤها بواسطة JavaScript -->
-                                </tr>
-                            </thead>
-                            <tbody id="results-table-body">
-                                <!-- سيتم ملؤها بواسطة JavaScript -->
-                            </tbody>
-                            <tfoot id="results-table-footer">
-                                <!-- سيتم ملؤها بواسطة JavaScript -->
-                            </tfoot>
-                        </table>
-                    </div>
+            
+            <!-- السؤال 3 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">3</span> 
+                    دلت الاكتشافات الأثرية على أن الأردن كان مأهولاً بالسكان، ونشأت على أرضه العديد من الحضارات بسبب كل مما يأتي، ما عدا:
                 </div>
-                
-                <div class="statistical-section">
-                    <h3><i class="fas fa-chart-bar"></i> التحليل الإحصائي</h3>
-                    
-                    <div class="stat-results" id="stat-results">
-                        <!-- سيتم ملؤها بواسطة JavaScript -->
-                    </div>
-                    
-                    <div class="charts-container">
-                        <div class="chart-box">
-                            <div class="chart-title">توزيع الدرجات</div>
-                            <canvas id="scoreDistributionChart"></canvas>
-                        </div>
-                        <div class="chart-box">
-                            <div class="chart-title">تحليل الفقرات (الصعوبة)</div>
-                            <canvas id="itemDifficultyChart"></canvas>
-                        </div>
-                        <div class="chart-box">
-                            <div class="chart-title">تحليل الفقرات (التمييز)</div>
-                            <canvas id="itemDiscriminationChart"></canvas>
-                        </div>
-                        <div class="chart-box">
-                            <div class="chart-title">المستويات التحصيلية</div>
-                            <canvas id="achievementLevelsChart"></canvas>
-                        </div>
-                    </div>
+                <div class="options">
+                    <div class="option">أ) الموقع المتوسط للعديد من الحضارات</div>
+                    <div class="option">ب) وفرة المياه والتربة الخصبة</div>
+                    <div class="option">ج) اعتدال المناخ</div>
+                    <div class="option">د) وفرة القوى العاملة</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer3">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                        المزيد عن العصور الحجرية
+                    </a>
+                    <div class="answer" id="answer3">د) وفرة القوى العاملة</div>
                 </div>
             </div>
+            
+            <!-- السؤال 4 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">4</span> 
+                    تبدأ عصور ما قبل التاريخ منذ:
+                </div>
+                <div class="options">
+                    <div class="option">أ) بداية صناعة الأسلحة والأدوات التي تساعد في البقاء الحيوي</div>
+                    <div class="option">ب) بداية استخدام البرونز</div>
+                    <div class="option">ج) بداية اختراع الكتابة</div>
+                    <div class="option">د) ميلاد المسيح عليه السلام</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer4">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                        المزيد عن العصور الحجرية
+                    </a>
+                    <div class="answer" id="answer4">أ) بداية صناعة الأسلحة والأدوات التي تساعد في البقاء الحيوي</div>
+                </div>
+            </div>
+            
+            <!-- السؤال 5 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">5</span> 
+                    تعود أقدم بقايا أثرية للإنسان بالأردن إلى:
+                </div>
+                <div class="options">
+                    <div class="option">أ) 35 مليون سنة تقريباً</div>
+                    <div class="option">ب) 25 مليون سنة تقريباً</div>
+                    <div class="option">ج) 3.5 مليون سنة تقريباً</div>
+                    <div class="option">د) 2.5 مليون سنة تقريباً</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer5">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/1/" target="_blank" class="external-link">
+                        المزيد عن العصور الحجرية
+                    </a>
+                    <div class="answer" id="answer5">د) 2.5 مليون سنة تقريباً</div>
+                </div>
+            </div>
+            
         </div>
         
-        <!-- النتائج والتقارير -->
-        <div id="results" class="tab-content">
-            <div class="specification-summary">
-                <h2><i class="fas fa-chart-line"></i> النتائج والتقارير</h2>
-                
-                <div class="conclusion">
-                    <h3>نتائج التحليل والمطابقة</h3>
-                    <div id="compatibility-result">
-                        <p>التحقق من مطابقة الاختبار لجدول المواصفات:</p>
-                        <div id="compatibility-status" class="status-indicator status-incompatible">غير محسوب بعد</div>
-                    </div>
-                    
-                    <div class="calculation-details">
-                        <h3>تفاصيل الحسابات</h3>
-                        <div id="calculation-details">
-                            <p>سيظهر هنا تفاصيل الحسابات بعد إجراء التحليل</p>
-                        </div>
-                    </div>
+        <!-- الدرس الثاني: الأردن في العصر الحديدي -->
+        <div class="lesson" id="lesson2">
+            <h3><span class="question-number">2</span> الدرس الثاني: الأردن في العصر الحديدي</h3>
+            
+            <!-- رابط خارجي للدرس الثاني -->
+            <div style="text-align: center; margin: 15px 0;">
+                <a href="https://qahwaje280-commits.github.io/2/" target="_blank" class="external-link">
+                    عرض المزيد عن: الأردن في العصر الحديدي
+                </a>
+            </div>
+            
+            <!-- السؤال 1 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">1</span> 
+                    شهد الأردن ظهور الدولة المنظمة التي أسسها سكان المدن بدلاً من دول المدن التي كانت سائدة في العصر:
                 </div>
-                
-                <div class="controls">
-                    <button class="btn btn-success" onclick="generateReport()"><i class="fas fa-file-pdf"></i> إنشاء تقرير PDF</button>
-                    <button class="btn btn-primary" onclick="printReport()"><i class="fas fa-print"></i> طباعة التقرير</button>
-                    
-                    <div class="export-options">
-                        <button class="export-btn" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> تصدير لإكسل</button>
-                        <button class="export-btn" onclick="saveToLocal()"><i class="fas fa-download"></i> حفظ محلي</button>
-                        <button class="export-btn" onclick="loadFromLocal()"><i class="fas fa-upload"></i> تحميل محفوظ</button>
-                    </div>
+                <div class="options">
+                    <div class="option">أ) الحجري الحديث</div>
+                    <div class="option">ب) النحاسي</div>
+                    <div class="option">ج) الحديدي</div>
+                    <div class="option">د) البرونزي</div>
                 </div>
-                
-                <div class="signatures">
-                    <div class="signature-box">
-                        <div>معلم المبحث:</div>
-                        <div class="signature-line" id="teacher-signature"></div>
-                    </div>
-                    <div class="signature-box">
-                        <div>مدير المدرسة:</div>
-                        <div class="signature-line" id="principal-signature"></div>
-                    </div>
-                    <div class="signature-box">
-                        <div>المشرف التربوي المختص:</div>
-                        <div class="signature-line" id="supervisor-signature"></div>
-                    </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer2_1">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/2/" target="_blank" class="external-link">
+                        المزيد عن العصر الحديدي
+                    </a>
+                    <div class="answer" id="answer2_1">ج) الحديدي</div>
+                </div>
+            </div>
+            
+            <!-- السؤال 2 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">2</span> 
+                    كل ما يأتي من الأسباب التي دفعت العديد من القبائل العربية في العصر الحديدي للهجرة من شبه الجزيرة العربية، ما عدا:
+                </div>
+                <div class="options">
+                    <div class="option">أ) النزاعات فيما بينها</div>
+                    <div class="option">ب) النظام الملكي</div>
+                    <div class="option">ج) انهيار سد مأرب</div>
+                    <div class="option">د) القحط والجفاف</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer2_2">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/2/" target="_blank" class="external-link">
+                        المزيد عن العصر الحديدي
+                    </a>
+                    <div class="answer" id="answer2_2">ب) النظام الملكي</div>
+                </div>
+            </div>
+            
+            <!-- السؤال 3 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">3</span> 
+                    نظام الحكم الذي كان سائداً في العديد من أجزاء الجزيرة العربية في العصر البرونزي:
+                </div>
+                <div class="options">
+                    <div class="option">أ) الجمهوري</div>
+                    <div class="option">ب) الاشتراكي</div>
+                    <div class="option">ج) دول المدن</div>
+                    <div class="option">د) الملكي</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer2_3">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/2/" target="_blank" class="external-link">
+                        المزيد عن العصر الحديدي
+                    </a>
+                    <div class="answer" id="answer2_3">ج) دول المدن</div>
+                </div>
+            </div>
+            
+            <!-- السؤال 4 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">4</span> 
+                    كل ما يأتي من أبرز تطورات العصر الحديدي، ما عدا:
+                </div>
+                <div class="options">
+                    <div class="option">أ) كُتّست العملات المعدنية من الذهب</div>
+                    <div class="option">ب) صنعت المحاريث والمناجل وأدوات الطحن من البرونز والفضة</div>
+                    <div class="option">ج) أصبحت البيوت تتخذ شكلاً هندسياً</div>
+                    <div class="option">د) تطورت الأدوات الزراعية</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer2_4">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/2/" target="_blank" class="external-link">
+                        المزيد عن العصر الحديدي
+                    </a>
+                    <div class="answer" id="answer2_4">أ) كُتّست العملات المعدنية من الذهب</div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- الدرس الثالث: مملكة الأنباط -->
+        <div class="lesson" id="lesson3">
+            <h3><span class="question-number">3</span> الدرس الثالث: مملكة الأنباط</h3>
+            
+            <!-- رابط خارجي للدرس الثالث -->
+            <div style="text-align: center; margin: 15px 0;">
+                <a href="https://qahwaje280-commits.github.io/3/" target="_blank" class="external-link">
+                    عرض المزيد عن مملكة الأنباط
+                </a>
+            </div>
+            
+            <!-- السؤال 1 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">1</span> 
+                    اتخذ الأنباط مدينة البتراء عاصمة لهم بسبب:
+                </div>
+                <div class="options">
+                    <div class="option">أ) موقعها الاستراتيجي على الطرق التجارية</div>
+                    <div class="option">ب) بعدها عن نفوذ الأشوريون والبابليون</div>
+                    <div class="option">ج) موقعها على الطرق التجارية، وموقعها الحصين بين الجبال، وقربها من ينابيع المياه</div>
+                    <div class="option">د) موقعها الحصين بين وادي الموجب ووادي الولة، ووفرة الأراضي الزراعية والمراعي فيها</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer3_1">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/3/" target="_blank" class="external-link">
+                        المزيد عن مملكة الأنباط
+                    </a>
+                    <div class="answer" id="answer3_1">ج) موقعها على الطرق التجارية، وموقعها الحصين بين الجبال، وقربها من ينابيع المياه</div>
+                </div>
+            </div>
+            
+            <!-- السؤال 2 -->
+            <div class="question-container">
+                <div class="question">
+                    <span class="question-number">2</span> 
+                    يوجد ارتباط حضاري ونقلي بين الأنباط و:
+                </div>
+                <div class="options">
+                    <div class="option">أ) الفراعنة</div>
+                    <div class="option">ب) المؤابيون</div>
+                    <div class="option">ج) الأدوميون</div>
+                    <div class="option">د) اليونانيون</div>
+                </div>
+                <div class="answer-section">
+                    <button class="show-answer" data-answer="answer3_2">إظهار الإجابة</button>
+                    <a href="https://qahwaje280-commits.github.io/3/" target="_blank" class="external-link">
+                        المزيد عن مملكة الأنباط
+                    </a>
+                    <div class="answer" id="answer3_2">ج) الأدوميون</div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        // بيانات التطبيق
-        let appData = {
-            units: [],
-            questions: [],
-            students: [],
-            totalMarks: 80,
-            knowledgePercent: 40,
-            applicationPercent: 30,
-            skillsPercent: 30
-        };
-
-        // تهيئة التطبيق
-        document.addEventListener('DOMContentLoaded', function() {
-            // إضافة الوحدات الافتراضية الفارغة
-            for (let i = 1; i <= 4; i++) {
-                addUnit(false);
-            }
-            
-            // إضافة طلاب افتراضيين
-            for (let i = 1; i <= 5; i++) {
-                addStudent(false);
-            }
-            
-            loadData();
-            renderSpecificationsTable();
-            renderAnalysisTable();
-            renderResultsTable();
-            calculateSpecifications();
-            updateCognitiveTotal();
-        });
-
-        // وظائف التبويب
-        function openTab(tabName) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach(button => button.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            event.currentTarget.classList.add('active');
-            
-            // إذا كان التبويب هو التحليل الإحصائي، نقوم بحساب الإحصائيات تلقائياً
-            if (tabName === 'statistical') {
-                calculateStatistics();
-            }
-        }
-
-        // تحديث المستويات المعرفية
-        function updateCognitiveLevels() {
-            appData.knowledgePercent = parseInt(document.getElementById('knowledge-percent').value) || 0;
-            appData.applicationPercent = parseInt(document.getElementById('application-percent').value) || 0;
-            appData.skillsPercent = parseInt(document.getElementById('skills-percent').value) || 0;
-            
-            updateCognitiveTotal();
-            calculateSpecifications();
-        }
-
-        function updateCognitiveTotal() {
-            const total = appData.knowledgePercent + appData.applicationPercent + appData.skillsPercent;
-            document.getElementById('cognitive-total').textContent = total + '%';
-            
-            if (total !== 100) {
-                document.getElementById('cognitive-total').style.color = 'red';
-                document.getElementById('cognitive-total').style.fontWeight = 'bold';
-            } else {
-                document.getElementById('cognitive-total').style.color = 'inherit';
-                document.getElementById('cognitive-total').style.fontWeight = 'normal';
-            }
-        }
-
-        // وظائف جدول المواصفات
-        function renderSpecificationsTable() {
-            const tableBody = document.getElementById('spec-table-body');
-            tableBody.innerHTML = '';
-            
-            appData.units.forEach((unit, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${unit.id}</td>
-                    <td><input type="text" value="${unit.name}" onchange="updateUnit(${index}, 'name', this.value)" placeholder="أدخل اسم الوحدة"></td>
-                    <td><input type="number" value="${unit.pages}" min="0" onchange="updateUnit(${index}, 'pages', parseInt(this.value))" placeholder="0"></td>
-                    <td>${unit.weight.toFixed(1)}%</td>
-                    <td>${unit.marks.toFixed(1)}</td>
-                    <td>${unit.percentage.toFixed(1)}%</td>
-                    <td>${unit.knowledge.toFixed(1)}</td>
-                    <td>${unit.application.toFixed(1)}</td>
-                    <td>${unit.skills.toFixed(1)}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        function updateUnit(index, property, value) {
-            appData.units[index][property] = value;
-            calculateSpecifications();
-        }
-
-        function addUnit(calculate = true) {
-            const newId = appData.units.length + 1;
-            appData.units.push({
-                id: newId,
-                name: "",
-                pages: 0,
-                weight: 0,
-                marks: 0,
-                percentage: 0,
-                knowledge: 0,
-                application: 0,
-                skills: 0
-            });
-            renderSpecificationsTable();
-            if (calculate) {
-                calculateSpecifications();
-                renderAnalysisTable();
-            }
-        }
-
-        function calculateSpecifications() {
-            const totalPages = appData.units.reduce((sum, unit) => sum + unit.pages, 0);
-            const totalMarks = parseInt(document.getElementById('total-marks').value) || 80;
-            appData.totalMarks = totalMarks;
-            
-            appData.units.forEach(unit => {
-                unit.weight = totalPages > 0 ? (unit.pages / totalPages) * 100 : 0;
-                unit.marks = (unit.weight / 100) * totalMarks;
-                unit.percentage = (unit.marks / totalMarks) * 100;
-                unit.knowledge = unit.marks * (appData.knowledgePercent / 100);
-                unit.application = unit.marks * (appData.applicationPercent / 100);
-                unit.skills = unit.marks * (appData.skillsPercent / 100);
-            });
-            
-            // تحديث الإجماليات
-            document.getElementById('total-weight').textContent = '100%';
-            document.getElementById('total-unit-marks').textContent = totalMarks.toFixed(1);
-            document.getElementById('total-percentage').textContent = '100%';
-            document.getElementById('total-knowledge').textContent = (totalMarks * (appData.knowledgePercent / 100)).toFixed(1);
-            document.getElementById('total-application').textContent = (totalMarks * (appData.applicationPercent / 100)).toFixed(1);
-            document.getElementById('total-skills').textContent = (totalMarks * (appData.skillsPercent / 100)).toFixed(1);
-            
-            renderSpecificationsTable();
-        }
-
-        // وظائف تحليل الاختبار
-        function renderAnalysisTable() {
-            const table = document.getElementById('analysis-table');
-            const tableBody = document.getElementById('analysis-table-body');
-            
-            // إنشاء رأس الجدول
-            let headerHTML = `
-                <tr>
-                    <th rowspan="3">السؤال</th>
-            `;
-            
-            appData.units.forEach(unit => {
-                headerHTML += `<th colspan="3" class="unit-header">${unit.name || "الوحدة " + unit.id}</th>`;
-            });
-            
-            headerHTML += `</tr><tr>`;
-            
-            appData.units.forEach(() => {
-                headerHTML += `
-                    <th class="level-header">المعرفة والفهم</th>
-                    <th class="level-header">التوظيف والتطبيق</th>
-                    <th class="level-header">المهارات العليا</th>
-                `;
-            });
-            
-            headerHTML += `</tr>`;
-            
-            table.querySelector('thead').innerHTML = headerHTML;
-            
-            // إنشاء صفوف الأسئلة
-            tableBody.innerHTML = '';
-            
-            // إذا لم تكن هناك أسئلة، ننشئ 6 أسئلة افتراضية
-            if (appData.questions.length === 0) {
-                for (let i = 1; i <= 6; i++) {
-                    appData.questions.push({
-                        id: i,
-                        marks: Array(appData.units.length * 3).fill(0)
-                    });
-                }
-            }
-            
-            appData.questions.forEach((question, qIndex) => {
-                const row = document.createElement('tr');
-                let rowHTML = `<td>${question.id}</td>`;
+        
+        <!-- الدرس الرابع: مظاهر الحضارة اليونانية في الأردن -->
+        <div class="lesson" id="lesson4">
                 
-                for (let i = 0; i < appData.units.length * 3; i++) {
-                    rowHTML += `
-                        <td>
-                            <input type="number" value="${question.marks[i] || 0}" min="0" 
-                                   onchange="updateQuestionMark(${qIndex}, ${i}, parseInt(this.value))">
-                        </td>
-                    `;
-                }
-                
-                row.innerHTML = rowHTML;
-                tableBody.appendChild(row);
-            });
-            
-            // تحديث صف الإجماليات
-            updateAnalysisTotals();
-        }
-
-        function autoFillAnalysis() {
-            // تعبئة التحليل تلقائياً بناءً على جدول المواصفات
-            appData.questions = [];
-            
-            // إنشاء 6 أسئلة افتراضية
-            for (let i = 1; i <= 6; i++) {
-                const question = {
-                    id: i,
-                    marks: Array(appData.units.length * 3).fill(0)
-                };
-                
-                // توزيع العلامات بناءً على نسب جدول المواصفات
-                appData.units.forEach((unit, unitIndex) => {
-                    const knowledgeMarks = Math.round(unit.knowledge / 6 * 10) / 10;
-                    const applicationMarks = Math.round(unit.application / 6 * 10) / 10;
-                    const skillsMarks = Math.round(unit.skills / 6 * 10) / 10;
-                    
-                    question.marks[unitIndex * 3] = knowledgeMarks;
-                    question.marks[unitIndex * 3 + 1] = applicationMarks;
-                    question.marks[unitIndex * 3 + 2] = skillsMarks;
-                });
-                
-                appData.questions.push(question);
-            }
-            
-            renderAnalysisTable();
-            alert("تم تعبئة تحليل الاختبار تلقائياً بناءً على جدول المواصفات");
-        }
-
-        function updateQuestionMark(questionIndex, markIndex, value) {
-            appData.questions[questionIndex].marks[markIndex] = value;
-            updateAnalysisTotals();
-        }
-
-        function addQuestion() {
-            const newId = appData.questions.length + 1;
-            appData.questions.push({
-                id: newId,
-                marks: Array(appData.units.length * 3).fill(0)
-            });
-            renderAnalysisTable();
-        }
-
-        function updateAnalysisTotals() {
-            const totalsRow = document.getElementById('analysis-totals');
-            const percentagesRow = document.getElementById('analysis-percentages');
-            
-            let totalsHTML = '<td>المجموع</td>';
-            let percentagesHTML = '<td>النسبة (%)</td>';
-            
-            // حساب الإجماليات لكل عمود
-            const columnTotals = Array(appData.units.length * 3).fill(0);
-            
-            appData.questions.forEach(question => {
-                question.marks.forEach((mark, index) => {
-                    columnTotals[index] += mark;
-                });
-            });
-            
-            // حساب الإجماليات لكل وحدة
-            let unitTotals = Array(appData.units.length).fill(0);
-            for (let i = 0; i < appData.units.length; i++) {
-                unitTotals[i] = columnTotals[i * 3] + columnTotals[i * 3 + 1] + columnTotals[i * 3 + 2];
-            }
-            
-            // حساب الإجمالي الكلي
-            const grandTotal = unitTotals.reduce((sum, total) => sum + total, 0);
-            
-            columnTotals.forEach(total => {
-                totalsHTML += `<td>${total.toFixed(1)}</td>`;
-            });
-            
-            totalsRow.innerHTML = totalsHTML;
-            
-            // حساب النسب المئوية
-            for (let i = 0; i < appData.units.length; i++) {
-                const unitTotal = unitTotals[i];
-                const unitPercentage = grandTotal > 0 ? (unitTotal / grandTotal * 100).toFixed(1) : 0;
-                
-                percentagesHTML += `<td colspan="3">${unitPercentage}%</td>`;
-            }
-            
-            percentagesRow.innerHTML = percentagesHTML;
-        }
-
-        function calculateAnalysis() {
-            updateAnalysisTotals();
-            alert("تم حساب تحليل الاختبار بنجاح!");
-        }
-
-        function checkCompatibility() {
-            const statusElement = document.getElementById('compatibility-status');
-            const detailsElement = document.getElementById('calculation-details');
-            
-            // حساب الإجماليات من جدول التحليل
-            const columnTotals = Array(appData.units.length * 3).fill(0);
-            
-            appData.questions.forEach(question => {
-                question.marks.forEach((mark, index) => {
-                    columnTotals[index] += mark;
-                });
-            });
-            
-            // حساب الإجماليات لكل وحدة
-            let totalKnowledge = 0;
-            let totalApplication = 0;
-            let totalSkills = 0;
-            let unitTotals = Array(appData.units.length).fill(0);
-            
-            for (let i = 0; i < appData.units.length; i++) {
-                totalKnowledge += columnTotals[i * 3];
-                totalApplication += columnTotals[i * 3 + 1];
-                totalSkills += columnTotals[i * 3 + 2];
-                unitTotals[i] = columnTotals[i * 3] + columnTotals[i * 3 + 1] + columnTotals[i * 3 + 2];
-            }
-            
-            const totalFromAnalysis = totalKnowledge + totalApplication + totalSkills;
-            const totalFromSpecs = appData.totalMarks;
-            
-            // حساب النسب
-            const knowledgePercentFromAnalysis = totalFromAnalysis > 0 ? (totalKnowledge / totalFromAnalysis) * 100 : 0;
-            const applicationPercentFromAnalysis = totalFromAnalysis > 0 ? (totalApplication / totalFromAnalysis) * 100 : 0;
-            const skillsPercentFromAnalysis = totalFromAnalysis > 0 ? (totalSkills / totalFromAnalysis) * 100 : 0;
-            
-            // التحقق من المطابقة
-            const knowledgeDiff = Math.abs(knowledgePercentFromAnalysis - appData.knowledgePercent);
-            const applicationDiff = Math.abs(applicationPercentFromAnalysis - appData.applicationPercent);
-            const skillsDiff = Math.abs(skillsPercentFromAnalysis - appData.skillsPercent);
-            
-            const isCompatible = knowledgeDiff <= 5 && applicationDiff <= 5 && skillsDiff <= 5;
-            
-            // تحديث واجهة النتائج
-            if (isCompatible) {
-                statusElement.textContent = "مطابق لجدول المواصفات";
-                statusElement.className = "status-indicator status-compatible";
-            } else {
-                statusElement.textContent = "غير مطابق لجدول المواصفات";
-                statusElement.className = "status-indicator status-incompatible";
-            }
-            
-            // عرض تفاصيل الحسابات
-            let detailsHTML = `
-                <p><strong>إجمالي العلامات من التحليل:</strong> ${totalFromAnalysis.toFixed(1)}</p>
-                <p><strong>إجمالي العلامات من المواصفات:</strong> ${totalFromSpecs.toFixed(1)}</p>
-                <p><strong>توزيع المستويات المعرفية في التحليل:</strong></p>
-                <ul>
-                    <li>المعرفة والفهم: ${knowledgePercentFromAnalysis.toFixed(1)}% (المطلوب: ${appData.knowledgePercent}%)</li>
-                    <li>التوظيف والتطبيق: ${applicationPercentFromAnalysis.toFixed(1)}% (المطلوب: ${appData.applicationPercent}%)</li>
-                    <li>المهارات العليا: ${skillsPercentFromAnalysis.toFixed(1)}% (المطلوب: ${appData.skillsPercent}%)</li>
-                </ul>
-                <p><strong>توزيع الوحدات الدراسية:</strong></p>
-                <ul>
-            `;
-            
-            for (let i = 0; i < appData.units.length; i++) {
-                const unitPercentage = totalFromAnalysis > 0 ? (unitTotals[i] / totalFromAnalysis * 100).toFixed(1) : 0;
-                detailsHTML += `<li>${appData.units[i].name || "الوحدة " + appData.units[i].id}: ${unitPercentage}% (المطلوب: ${appData.units[i].percentage.toFixed(1)}%)</li>`;
-            }
-            
-            detailsHTML += `</ul>`;
-            
-            detailsElement.innerHTML = detailsHTML;
-        }
-
-        // وظائف التحليل الإحصائي
-        function renderResultsTable() {
-            const table = document.getElementById('results-table');
-            const headerRow = document.getElementById('questions-header');
-            const tableBody = document.getElementById('results-table-body');
-            const tableFooter = document.getElementById('results-table-footer');
-            
-            // إنشاء رأس الأسئلة
-            let headerHTML = '';
-            for (let i = 1; i <= 30; i++) {
-                headerHTML += `<th>${i}</th>`;
-            }
-            headerRow.innerHTML = headerHTML;
-            
-            // إنشاء صفوف الطلاب
-            tableBody.innerHTML = '';
-            
-            // إذا لم تكن هناك طلاب، ننشئ 5 طلاب افتراضيين
-            if (appData.students.length === 0) {
-                for (let i = 1; i <= 5; i++) {
-                    addStudent(false);
-                }
-            }
-            
-            appData.students.forEach((student, sIndex) => {
-                const row = document.createElement('tr');
-                let rowHTML = `<td>${student.id}</td>`;
-                
-                // الأسئلة الموضوعية (1-20)
-                for (let i = 0; i < 20; i++) {
-                    rowHTML += `
-                        <td>
-                            <input type="number" value="${student.scores[i] || 0}" min="0" max="1" 
-                                   onchange="updateStudentScore(${sIndex}, ${i}, parseInt(this.value))">
-                        </td>
-                    `;
-                }
-                
-                // الأسئلة المقالية (21-30)
-                for (let i = 20; i < 30; i++) {
-                    rowHTML += `
-                        <td>
-                            <input type="number" value="${student.scores[i] || 0}" min="0" max="5" 
-                                   onchange="updateStudentScore(${sIndex}, ${i}, parseInt(this.value))">
-                        </td>
-                    `;
-                }
-                
-                // المجموع والنسبة المئوية
-                const totalScore = student.scores.reduce((sum, score) => sum + (score || 0), 0);
-                const percentage = ((totalScore / 45) * 100).toFixed(1); // 45 هي العلامة الكلية (20 + 25)
-                
-                rowHTML += `<td>${totalScore}</td>`;
-                rowHTML += `<td>${percentage}%</td>`;
-                
-                row.innerHTML = rowHTML;
-                tableBody.appendChild(row);
-            });
-            
-            // تحديث الإجماليات
-            updateResultsTotals();
-        }
-
-        function addStudent(calculate = true) {
-            const newId = appData.students.length + 1;
-            appData.students.push({
-                id: newId,
-                scores: Array(30).fill(0)
-            });
-            renderResultsTable();
-            if (calculate) {
-                calculateStatistics();
-            }
-        }
-
-        function updateStudentScore(studentIndex, questionIndex, value) {
-            appData.students[studentIndex].scores[questionIndex] = value;
-            updateResultsTotals();
-            calculateStatistics();
-        }
-
-        function updateResultsTotals() {
-            const tableFooter = document.getElementById('results-table-footer');
-            
-            if (appData.students.length === 0) return;
-            
-            let footerHTML = `
-                <tr class="totals-row">
-                    <td>المتوسط</td>
-            `;
-            
-            // حساب المتوسط لكل سؤال
-            for (let q = 0; q < 30; q++) {
-                let sum = 0;
-                appData.students.forEach(student => {
-                    sum += student.scores[q] || 0;
-                });
-                const avg = (sum / appData.students.length).toFixed(2);
-                footerHTML += `<td>${avg}</td>`;
-            }
-            
-            // حساب المتوسط للمجموع والنسبة المئوية
-            let totalSum = 0;
-            appData.students.forEach(student => {
-                const studentTotal = student.scores.reduce((sum, score) => sum + (score || 0), 0);
-                totalSum += studentTotal;
-            });
-            const totalAvg = (totalSum / appData.students.length).toFixed(1);
-            const percentageAvg = ((totalAvg / 45) * 100).toFixed(1);
-            
-            footerHTML += `<td>${totalAvg}</td>`;
-            footerHTML += `<td>${percentageAvg}%</td>`;
-            footerHTML += `</tr>`;
-            
-            tableFooter.innerHTML = footerHTML;
-        }
-
-        function calculateStatistics() {
-            if (appData.students.length === 0) return;
-            
-            // حساب الإحصائيات الأساسية
-            const scores = appData.students.map(student => {
-                return student.scores.reduce((sum, score) => sum + (score || 0), 0);
-            });
-            
-            const totalStudents = scores.length;
-            const maxScore = Math.max(...scores);
-            const minScore = Math.min(...scores);
-            const avgScore = (scores.reduce((sum, score) => sum + score, 0) / totalStudents).toFixed(1);
-            
-            // حساب الانحراف المعياري
-            const squaredDiffs = scores.map(score => Math.pow(score - avgScore, 2));
-            const variance = squaredDiffs.reduce((sum, diff) => sum + diff, 0) / totalStudents;
-            const stdDeviation = Math.sqrt(variance).toFixed(2);
-            
-            // حساب معامل الصعوبة والتمييز للفقرات
-            const itemDifficulty = [];
-            const itemDiscrimination = [];
-            
-            for (let q = 0; q < 30; q++) {
-                // معامل الصعوبة (نسبة الإجابات الصحيحة)
-                let correctAnswers = 0;
-                appData.students.forEach(student => {
-                    if (q < 20) { // أسئلة موضوعية (علامة 0 أو 1)
-                        if (student.scores[q] === 1) correctAnswers++;
-                    } else { // أسئلة مقالية (علامة من 0 إلى 5)
-                        if (student.scores[q] >= 3) correctAnswers++; // نفترض أن 3 فما فوق إجابة صحيحة
-                    }
-                });
-                itemDifficulty.push((correctAnswers / totalStudents * 100).toFixed(1));
-                
-                // معامل التمييز (الفرق بين أعلى 27% وأدنى 27%)
-                const sortedScores = [...scores].sort((a, b) => a - b);
-                const highGroupSize = Math.round(totalStudents * 0.27);
-                const lowGroupSize = Math.round(totalStudents * 0.27);
-                
-                const highGroupThreshold = sortedScores[totalStudents - highGroupSize];
-                const lowGroupThreshold = sortedScores[lowGroupSize - 1];
-                
-                let highGroupCorrect = 0;
-                let lowGroupCorrect = 0;
-                
-                appData.students.forEach((student, index) => {
-                    if (scores[index] >= highGroupThreshold) {
-                        if (q < 20) {
-                            if (student.scores[q] === 1) highGroupCorrect++;
-                        } else {
-                            if (student.scores[q] >= 3) highGroupCorrect++;
-                        }
-                    } else if (scores[index] <= lowGroupThreshold) {
-                        if (q < 20) {
-                            if (student.scores[q] === 1) lowGroupCorrect++;
-                        } else {
-                            if (student.scores[q] >= 3) lowGroupCorrect++;
-                        }
-                    }
-                });
-                
-                const discrimination = ((highGroupCorrect / highGroupSize) - (lowGroupCorrect / lowGroupSize)).toFixed(2);
-                itemDiscrimination.push(discrimination);
-            }
-            
-            // تحديث عرض الإحصائيات
-            const statResults = document.getElementById('stat-results');
-            statResults.innerHTML = `
-                <div class="stat-card">
-                    <div class="stat-label">عدد الطلاب</div>
-                    <div class="stat-value">${totalStudents}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">أعلى درجة</div>
-                    <div class="stat-value">${maxScore}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">أدنى درجة</div>
-                    <div class="stat-value">${minScore}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">المتوسط</div>
-                    <div class="stat-value">${avgScore}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">الانحراف المعياري</div>
-                    <div class="stat-value">${stdDeviation}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">معامل الثبات</div>
-                    <div class="stat-value">0.85</div>
-                </div>
-            `;
-            
-            // رسم الرسوم البيانية
-            drawCharts(scores, itemDifficulty, itemDiscrimination);
-        }
-
-        function drawCharts(scores, itemDifficulty, itemDiscrimination) {
-            // توزيع الدرجات
-            const scoreRanges = ['0-9', '10-19', '20-29', '30-39', '40-45'];
-            const scoreCounts = [0, 0, 0, 0, 0];
-            
-            scores.forEach(score => {
-                if (score <= 9) scoreCounts[0]++;
-                else if (score <= 19) scoreCounts[1]++;
-                else if (score <= 29) scoreCounts[2]++;
-                else if (score <= 39) scoreCounts[3]++;
-                else scoreCounts[4]++;
-            });
-            
-            const scoreCtx = document.getElementById('scoreDistributionChart').getContext('2d');
-            new Chart(scoreCtx, {
-                type: 'bar',
-                data: {
-                    labels: scoreRanges,
-                    datasets: [{
-                        label: 'عدد الطلاب',
-                        data: scoreCounts,
-                        backgroundColor: '#9c27b0',
-                        borderColor: '#7b1fa2',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'عدد الطلاب'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'مدى الدرجات'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // تحليل الفقرات (الصعوبة)
-            const difficultyCtx = document.getElementById('itemDifficultyChart').getContext('2d');
-            new Chart(difficultyCtx, {
-                type: 'line',
-                data: {
-                    labels: Array.from({length: 30}, (_, i) => i + 1),
-                    datasets: [{
-                        label: 'معامل الصعوبة (%)',
-                        data: itemDifficulty,
-                        backgroundColor: 'rgba(33, 150, 243, 0.2)',
-                        borderColor: '#2196f3',
-                        borderWidth: 2,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            title: {
-                                display: true,
-                                text: 'معامل الصعوبة (%)'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'رقم الفقرة'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // تحليل الفقرات (التمييز)
-            const discriminationCtx = document.getElementById('itemDiscriminationChart').getContext('2d');
-            new Chart(discriminationCtx, {
-                type: 'bar',
-                data: {
-                    labels: Array.from({length: 30}, (_, i) => i + 1),
-                    datasets: [{
-                        label: 'معامل التمييز',
-                        data: itemDiscrimination,
-                        backgroundColor: '#ff9800',
-                        borderColor: '#f57c00',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'معامل التمييز'
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'رقم الفقرة'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // المستويات التحصيلية
-            const achievementLevels = ['ضعيف', 'مقبول', 'جيد', 'جيد جداً', 'ممتاز'];
-            const achievementCounts = [0, 0, 0, 0, 0];
-            
-            scores.forEach(score => {
-                const percentage = (score / 45) * 100;
-                if (percentage < 50) achievementCounts[0]++;
-                else if (percentage < 65) achievementCounts[1]++;
-                else if (percentage < 75) achievementCounts[2]++;
-                else if (percentage < 85) achievementCounts[3]++;
-                else achievementCounts[4]++;
-            });
-            
-            const achievementCtx = document.getElementById('achievementLevelsChart').getContext('2d');
-            new Chart(achievementCtx, {
-                type: 'pie',
-                data: {
-                    labels: achievementLevels,
-                    datasets: [{
-                        data: achievementCounts,
-                        backgroundColor: [
-                            '#f44336',
-                            '#ff9800',
-                            '#ffeb3b',
-                            '#4caf50',
-                            '#2196f3'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        function generateRandomData() {
-            appData.students.forEach(student => {
-                for (let i = 0; i < 30; i++) {
-                    if (i < 20) {
-                        // أسئلة موضوعية (0 أو 1)
-                        student.scores[i] = Math.random() > 0.3 ? 1 : 0;
-                    } else {
-                        // أسئلة مقالية (0 إلى 5)
-                        student.scores[i] = Math.floor(Math.random() * 6);
-                    }
-                }
-            });
-            renderResultsTable();
-            calculateStatistics();
-            alert("تم إنشاء بيانات عشوائية للطلاب");
-        }
-
-        // وظائف الحفظ والتحميل
-        function saveData() {
-            const dataToSave = {
-                units: appData.units,
-                questions: appData.questions,
-                students: appData.students,
-                totalMarks: appData.totalMarks,
-                knowledgePercent: appData.knowledgePercent,
-                applicationPercent: appData.applicationPercent,
-                skillsPercent: appData.skillsPercent,
-                schoolInfo: {
-                    year: document.getElementById('school-year').value,
-                    name: document.getElementById('school-name').value,
-                    grade: document.getElementById('grade').value,
-                    subject: document.getElementById('subject').value,
-                    teacher: document.getElementById('teacher').value
-                }
-            };
-            
-            localStorage.setItem('testAnalysisData', JSON.stringify(dataToSave));
-            alert('تم حفظ البيانات بنجاح!');
-        }
-
-        function loadData() {
-            const savedData = localStorage.getItem('testAnalysisData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                appData.units = data.units || appData.units;
-                appData.questions = data.questions || [];
-                appData.students = data.students || [];
-                appData.totalMarks = data.totalMarks || 80;
-                appData.knowledgePercent = data.knowledgePercent || 40;
-                appData.applicationPercent = data.applicationPercent || 30;
-                appData.skillsPercent = data.skillsPercent || 30;
-                
-                if (data.schoolInfo) {
-                    document.getElementById('school-year').value = data.schoolInfo.year;
-                    document.getElementById('school-name').value = data.schoolInfo.name;
-                    document.getElementById('grade').value = data.schoolInfo.grade;
-                    document.getElementById('subject').value = data.schoolInfo.subject;
-                    document.getElementById('teacher').value = data.schoolInfo.teacher;
-                }
-                
-                document.getElementById('knowledge-percent').value = appData.knowledgePercent;
-                document.getElementById('application-percent').value = appData.applicationPercent;
-                document.getElementById('skills-percent').value = appData.skillsPercent;
-                
-                alert('تم تحميل البيانات المحفوظة بنجاح!');
-            }
-        }
-
-        function clearData() {
-            if (confirm('هل أنت متأكد من رغبتك في تفريغ جميع البيانات؟')) {
-                appData.units = [];
-                for (let i = 1; i <= 4; i++) {
-                    addUnit(false);
-                }
-                appData.questions = [];
-                appData.students = [];
-                for (let i = 1; i <= 5; i++) {
-                    addStudent(false);
-                }
-                document.getElementById('school-name').value = '';
-                document.getElementById('teacher').value = '';
-                document.getElementById('knowledge-percent').value = 40;
-                document.getElementById('application-percent').value = 30;
-                document.getElementById('skills-percent').value = 30;
-                
-                calculateSpecifications();
-                renderAnalysisTable();
-                renderResultsTable();
-                updateCognitiveTotal();
-                
-                alert('تم تفريغ جميع البيانات بنجاح!');
-            }
-        }
-
-        function saveToLocal() {
-            saveData();
-        }
-
-        function loadFromLocal() {
-            loadData();
-            renderSpecificationsTable();
-            renderAnalysisTable();
-            renderResultsTable();
-            calculateSpecifications();
-            updateCognitiveTotal();
-        }
-
-        // وظائف التصدير والطباعة
-        function generateReport() {
-            alert("سيتم إنشاء تقرير PDF. هذه الميزة تتطلب اتصال بالإنترنت أو مكتبة jsPDF.");
-            // في التطبيق الحقيقي، نستخدم مكتبة مثل jsPDF لإنشاء PDF
-        }
-
-        function printReport() {
-            window.print();
-        }
-
-        function exportToExcel() {
-            alert("سيتم تصدير البيانات إلى Excel. هذه الميزة تستخدم مكتبة مثل SheetJS.");
-            // في التطبيق الحقيقي، نستخدم مكتبة مثل SheetJS لتصدير البيانات
-        }
-    </script>
-</body>
-</html>
